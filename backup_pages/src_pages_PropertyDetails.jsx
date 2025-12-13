@@ -1,0 +1,234 @@
+"use client"
+
+import { useState } from "react"
+import { useParams, useNavigate } from "react-router-dom"
+import { motion, AnimatePresence } from "framer-motion"
+import { ArrowLeft, ChevronLeft, ChevronRight, Bed, Bath, Square, MapPin, Calendar } from "lucide-react"
+import { properties } from "../data/properties"
+
+const PropertyDetails = () => {
+  const { id } = useParams()
+  const navigate = useNavigate()
+  const property = properties.find((p) => p.id === Number.parseInt(id))
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [direction, setDirection] = useState(0)
+
+  if (!property) {
+    return <div className="min-h-screen flex items-center justify-center">Property not found</div>
+  }
+
+  const images = [property.image, property.image, property.image] // In real app, would have multiple images
+
+  const nextImage = () => {
+    setDirection(1)
+    setCurrentImageIndex((prev) => (prev + 1) % images.length)
+  }
+
+  const prevImage = () => {
+    setDirection(-1)
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
+  }
+
+  const slideVariants = {
+    enter: (direction) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+    },
+    exit: (direction) => ({
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+    }),
+  }
+
+  return (
+    <div className="min-h-screen bg-background pt-20">
+      {/* Back Button */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8">
+        <motion.button
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          onClick={() => navigate("/")}
+          className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-150"
+        >
+          <ArrowLeft size={20} strokeWidth={1.5} />
+          <span>Back to Properties</span>
+        </motion.button>
+      </div>
+
+      {/* Image Carousel */}
+      <div className="relative h-[60vh] overflow-hidden bg-black">
+        <AnimatePresence initial={false} custom={direction}>
+          <motion.img
+            key={currentImageIndex}
+            src={images[currentImageIndex]}
+            alt={`${property.title} - Image ${currentImageIndex + 1}`}
+            custom={direction}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: "tween", duration: 0.4, ease: [0.25, 0.1, 0.25, 1] },
+              opacity: { duration: 0.2 },
+            }}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        </AnimatePresence>
+
+        {/* Carousel Controls */}
+        <button
+          onClick={prevImage}
+          className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-colors duration-150 flex items-center justify-center"
+          aria-label="Previous image"
+        >
+          <ChevronLeft size={24} strokeWidth={1.5} />
+        </button>
+        <button
+          onClick={nextImage}
+          className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-colors duration-150 flex items-center justify-center"
+          aria-label="Next image"
+        >
+          <ChevronRight size={24} strokeWidth={1.5} />
+        </button>
+
+        {/* Image Indicators */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentImageIndex(index)}
+              className={`w-2 h-2 rounded-full transition-all duration-150 ${
+                index === currentImageIndex ? "bg-white w-8" : "bg-white/50"
+              }`}
+              aria-label={`Go to image ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Property Information */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* Main Content */}
+          <div className="lg:col-span-2">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+            >
+              <div className="flex items-start justify-between mb-6">
+                <div>
+                  <h1 className="font-serif text-4xl md:text-5xl text-foreground mb-4">{property.title}</h1>
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <MapPin size={20} strokeWidth={1.5} />
+                    <span className="text-lg">{property.location}</span>
+                  </div>
+                </div>
+                <div className="font-serif text-3xl text-accent">{property.price}</div>
+              </div>
+
+              <div className="flex flex-wrap gap-8 py-8 border-y border-border mb-8">
+                <div className="flex items-center gap-3">
+                  <Bed size={24} strokeWidth={1.5} className="text-accent" />
+                  <div>
+                    <div className="text-2xl font-serif text-foreground">{property.beds}</div>
+                    <div className="text-sm text-muted-foreground">Bedrooms</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Bath size={24} strokeWidth={1.5} className="text-accent" />
+                  <div>
+                    <div className="text-2xl font-serif text-foreground">{property.baths || 3}</div>
+                    <div className="text-sm text-muted-foreground">Bathrooms</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Square size={24} strokeWidth={1.5} className="text-accent" />
+                  <div>
+                    <div className="text-2xl font-serif text-foreground">{property.size}</div>
+                    <div className="text-sm text-muted-foreground">Square Feet</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="prose prose-lg max-w-none">
+                <h2 className="font-serif text-2xl text-foreground mb-4">About This Property</h2>
+                <p className="text-muted-foreground leading-relaxed mb-4">{property.description}</p>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  This exceptional residence offers an unparalleled lifestyle, combining timeless elegance with modern
+                  sophistication. Every detail has been carefully considered to create a harmonious living environment
+                  that exudes luxury and comfort.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  Located in one of the most prestigious neighborhoods, this property provides convenient access to fine
+                  dining, shopping, and entertainment while maintaining the privacy and tranquility you deserve.
+                </p>
+              </div>
+
+              <div className="mt-12">
+                <h2 className="font-serif text-2xl text-foreground mb-6">Key Features</h2>
+                <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {[ 
+                    "Gourmet chef's kitchen",
+                    "Master suite with spa bathroom",
+                    "Private outdoor space",
+                    "Smart home technology",
+                    "High-end appliances",
+                    "Custom finishes throughout",
+                    "Ample natural light",
+                    "Premium hardwood floors",
+                  ].map((feature, index) => (
+                    <motion.li
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: index * 0.05 }}
+                      className="flex items-center gap-3 text-muted-foreground"
+                    >
+                      <div className="w-1.5 h-1.5 bg-accent rounded-full" />
+                      {feature}
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Sticky Sidebar */}
+          <div className="lg:col-span-1">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+              className="sticky top-24 bg-card p-8 border border-border"
+            >
+              <h3 className="font-serif text-2xl text-foreground mb-6">Schedule a Visit</h3>
+              <p className="text-muted-foreground mb-6 leading-relaxed">
+                Experience this exceptional property in person. Contact us to arrange a private viewing.
+              </p>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full bg-accent text-accent-foreground py-4 text-sm tracking-wider uppercase font-medium hover:bg-accent/90 transition-all duration-150 flex items-center justify-center gap-3 mb-4"
+              >
+                <Calendar size={18} strokeWidth={2} />
+                Book Viewing
+              </motion.button>
+              <button className="w-full border border-border text-foreground py-4 text-sm tracking-wider uppercase font-medium hover:bg-muted transition-all duration-150">
+                Request Information
+              </button>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default PropertyDetails
