@@ -8,14 +8,14 @@ const NewlyAddedProperties = () => {
   const newest = allProperties.slice(0, 6)
 
   return (
-    <section className="py-20 px-4 lg:px-8 bg-neutral-900 text-white">
+  <section className="py-20 px-4 lg:px-8 bg-white text-foreground">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8 flex items-start justify-between gap-4">
           <div>
-            <h2 className="font-serif text-4xl md:text-5xl text-white">Newly-added properties</h2>
-            <p className="text-sm text-white/70 mt-2">Fresh listings curated for discerning buyers</p>
+            <h2 className="font-serif text-4xl md:text-5xl text-neutral-900">Newly-added properties</h2>
+            <p className="text-sm text-neutral-600 mt-2">Fresh listings curated for discerning buyers</p>
           </div>
-          <Link to="/listings" className="hidden md:inline-flex text-sm text-white/80 hover:underline">View all listings</Link>
+          <Link to="/listings" className="hidden md:inline-flex text-sm text-accent hover:underline">View all listings</Link>
         </div>
 
         <BentoGrid>
@@ -25,15 +25,15 @@ const NewlyAddedProperties = () => {
             return (
               <div key={p.id} onClick={() => navigate(`/property/${p.id}`)} className={`cursor-pointer ${spanClass}`}>
                 <BentoGridItem
-                  className="h-full"
+                  className="h-full glass-card--dark"
                   header={
                     <div className="h-56 md:h-full w-full overflow-hidden rounded-xl relative">
                       <img src={p.image} alt={p.title} className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105" />
                       <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent rounded-xl" />
                     </div>
                   }
-                  title={<div className="text-base md:text-lg font-medium text-white">{p.title}</div>}
-                  description={<span className="text-sm text-white/70">{p.price} • {p.beds} Beds • {p.size}</span>}
+                  title={<div className="text-base md:text-lg font-medium text-black">{p.title}</div>}
+                  description={<span className="text-sm text-black/70">{p.price} • {p.beds} Beds • {p.size}</span>}
                 />
               </div>
             )

@@ -18,19 +18,19 @@ const sampleArticles = [
 
 const ResearchInsights = () => {
   return (
-    <section className="py-14 px-4 lg:px-8 bg-neutral-900 text-white">
+    <section className="py-14 px-4 lg:px-8 bg-white text-foreground">
       <div className="max-w-7xl mx-auto">
         <div className="mb-6">
-          <h2 className="font-serif text-3xl md:text-4xl text-white">Research & Insights</h2>
-          <p className="text-sm text-white/70">Guides, market data and commentary to help you decide</p>
+          <h2 className="font-serif text-3xl md:text-4xl text-neutral-900">Research & Insights</h2>
+          <p className="text-sm text-neutral-600">Guides, market data and commentary to help you decide</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {sampleArticles.map((a) => (
-            <article key={a.id} className="glass-card p-6 rounded-xl hover:shadow-xl transition-shadow">
-              <h3 className="font-medium text-lg text-white mb-2">{a.title}</h3>
-              <p className="text-sm text-white/70 mb-4 line-clamp-3">{a.excerpt}</p>
-              <a href="#" className="text-sm text-white hover:underline">Read more</a>
+            <article key={a.id} className="glass-card glass-card--dark p-6 rounded-xl hover:shadow-xl transition-shadow">
+              <h3 className="font-medium text-lg text-black mb-2">{a.title}</h3>
+              <p className="text-sm text-black/70 mb-4 line-clamp-3">{a.excerpt}</p>
+              <a href="#" className="text-sm text-black hover:underline">Read more</a>
             </article>
           ))}
         </div>

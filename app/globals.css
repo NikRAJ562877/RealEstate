@@ -193,6 +193,17 @@
   box-shadow: 0 10px 30px rgba(0,0,0,0.45), 0 2px 8px rgba(255,255,255,0.02) inset;
 }
 
+/* Darker glass variant for use on white section backgrounds so cards pop */
+.glass-card--dark {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.619), rgba(255, 255, 255, 0.6));
+  border: 1px solid rgba(28, 27, 27, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(40px);
+}
+.glass-card--dark::after {
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.03), rgba(255,255,255,0));
+}
+
 /* subtle focus glow used by filter inputs */
 .shadow-glow {
   box-shadow: 0 6px 18px rgba(255,255,255,0.04), 0 2px 6px rgba(255,255,255,0.02);

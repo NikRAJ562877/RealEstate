@@ -40,7 +40,7 @@ const ContactForm = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="flex flex-col justify-between">
           <div>
-            <h3 className="font-serif text-5xl md:text-6xl mb-6">Reserve your spot</h3>
+            <h3 className="font-serif text-5xl md:text-6xl mb-6">Contact Us!</h3>
 
             <div className="space-y-4 text-sm text-gray-200 mb-6">
               <div className="flex items-start gap-4">
@@ -57,7 +57,7 @@ const ContactForm = () => {
                   <Zap className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <p>Join a community of early adopters and influence what we build next.</p>
+                  <p>Join a community of early Customer and get access to New property before anyone!</p>
                 </div>
               </div>
             </div>
@@ -65,7 +65,7 @@ const ContactForm = () => {
             <hr className="border-t border-neutral-800 my-6" />
 
             <div className="text-gray-200 text-lg leading-relaxed mb-6">
-              The waitlist has been a game-changer for our workflow. Highly recommend joining early.
+              The joining process has been a game-changer for our workflow. Highly recommend joining early.
             </div>
           </div>
 
@@ -73,7 +73,7 @@ const ContactForm = () => {
             <div className="h-12 w-12 rounded-full bg-white/5 border border-white/8" />
             <div>
               <div className="font-medium">Alex Rivera</div>
-              <div className="text-sm text-gray-400">Early Access Member</div>
+              <div className="text-sm text-gray-400">Professional Advisor</div>
             </div>
           </div>
         </div>

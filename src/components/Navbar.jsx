@@ -20,8 +20,6 @@ const Navbar = () => {
   const navLinks = [
     { name: "Home", href: "#hero" },
     { name: "Listings", href: "/listings" },
-    { name: "About", href: "#why-choose-us" },
-    { name: "Testimonials", href: "#testimonials" },
     { name: "Contact", href: "/contact" },
   ]
 
@@ -115,7 +113,7 @@ const Navbar = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-card border-t border-border"
+            className="md:hidden bg-card border-t border-border pointer-events-auto"
           >
             <div className="px-6 py-6 flex flex-col gap-4">
               {navLinks.map((link) => (
