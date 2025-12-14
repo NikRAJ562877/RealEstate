@@ -1,17 +1,22 @@
 import Hero from "../components/Hero"
-import PropertyListings from "../components/PropertyListings"
+import NewlyAddedProperties from "../components/NewlyAddedProperties"
+import ResearchInsights from "../components/ResearchInsights"
+import RecommendedSellers from "../components/RecommendedSellers"
 import WhyChooseUs from "../components/WhyChooseUs"
 import Testimonials from "../components/Testimonials"
-import Contact from "../components/Contact"
 
 const HomePage = () => {
   return (
     <>
       <Hero />
-      <PropertyListings />
+
+      {/* Homepage-only sections */}
+      <NewlyAddedProperties />
+      <ResearchInsights />
+      <RecommendedSellers />
+
       <WhyChooseUs />
       <Testimonials />
-      <Contact />
     </>
   )
 }

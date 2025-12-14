@@ -19,10 +19,10 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "Home", href: "#hero" },
-    { name: "Properties", href: "#properties" },
+    { name: "Listings", href: "/listings" },
     { name: "About", href: "#why-choose-us" },
     { name: "Testimonials", href: "#testimonials" },
-    { name: "Contact", href: "#contact" },
+    { name: "Contact", href: "/contact" },
   ]
 
   const scrollToSection = (e, href) => {
@@ -64,14 +64,20 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => scrollToSection(e, link.href)}
-                className="text-sm tracking-wide text-foreground hover:text-accent transition-colors duration-200"
-              >
-                {link.name}
-              </a>
+              link.href && link.href.startsWith("/") ? (
+                <Link key={link.name} to={link.href} className="text-sm tracking-wide text-foreground hover:text-accent transition-colors duration-200">
+                  {link.name}
+                </Link>
+              ) : (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => scrollToSection(e, link.href)}
+                  className="text-sm tracking-wide text-foreground hover:text-accent transition-colors duration-200"
+                >
+                  {link.name}
+                </a>
+              )
             ))}
           </div>
 
@@ -97,7 +103,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+          {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -109,14 +115,25 @@ const Navbar = () => {
           >
             <div className="px-6 py-6 flex flex-col gap-4">
               {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => scrollToSection(e, link.href)}
-                  className="text-base text-foreground hover:text-accent transition-colors duration-200"
-                >
-                  {link.name}
-                </a>
+                link.href && link.href.startsWith("/") ? (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-base text-foreground hover:text-accent transition-colors duration-200"
+                  >
+                    {link.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={(e) => scrollToSection(e, link.href)}
+                    className="text-base text-foreground hover:text-accent transition-colors duration-200"
+                  >
+                    {link.name}
+                  </a>
+                )
               ))}
             </div>
           </motion.div>

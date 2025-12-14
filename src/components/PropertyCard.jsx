@@ -3,71 +3,84 @@ import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom"
 import { Bed, Square, MapPin, ArrowRight } from "lucide-react"
 
-const PropertyCard = ({ property, index }) => {
+const Badge = ({ children, color = "bg-accent/10 text-accent" }) => (
+  <span className={`inline-flex items-center px-2 py-1 text-xs font-medium rounded-full ${color}`}>{children}</span>
+)
+
+const PropertyCard = ({ property, index, compact = false }) => {
   const navigate = useNavigate()
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6, delay: index * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-      className="group cursor-pointer"
+      transition={{ duration: 0.5, delay: index * 0.06 }}
+      className={`group cursor-pointer bg-card rounded-md overflow-hidden shadow-sm ${compact ? "flex gap-4 items-stretch h-full" : ""}`}
       onClick={() => navigate(`/property/${property.id}`)}
     >
-      <div className="relative overflow-hidden bg-card h-full">
-        {/* Image */}
-        <motion.div className="relative h-80 overflow-hidden" whileHover={{ scale: 1 }} transition={{ duration: 0.15 }}>
-          <motion.img
-            src={property.image}
-            alt={property.title}
-            className="w-full h-full object-cover"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-          />
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileHover={{ opacity: 1 }}
-            transition={{ duration: 0.15 }}
-            className="absolute inset-0 bg-black/10"
-          />
-        </motion.div>
+      {/* Image */}
+      <div className={`${compact ? "w-1/3" : "h-72"} relative overflow-hidden`}>
+        <motion.img
+          src={property.image}
+          alt={property.title}
+          className={`w-full h-full object-cover ${compact ? "h-full" : ""}`}
+          whileHover={{ scale: 1.04 }}
+          transition={{ duration: 0.6 }}
+        />
+        <div className="absolute top-3 left-3 flex gap-2">
+          {property.badges?.slice(0, 2).map((b, i) => (
+            <Badge key={i}>{b}</Badge>
+          ))}
+        </div>
+      </div>
 
-        {/* Content */}
-        <div className="p-6">
-          <div className="flex items-start justify-between mb-3">
-            <h3 className="font-serif text-2xl text-foreground">{property.title}</h3>
-            <span className="font-serif text-xl text-accent">{property.price}</span>
+      {/* Content */}
+      <div className={`p-4 flex-1 ${compact ? "py-3" : ""}`}>
+        <div className="flex items-center justify-between">
+          <h3 className="font-semibold text-lg text-foreground line-clamp-2">{property.title}</h3>
+          <div className="text-right">
+            <div className="text-xl font-serif text-accent">{property.price}</div>
+            <div className="text-sm text-muted-foreground">{property.pricePerSqft || ""}</div>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 text-sm text-muted-foreground mt-2">
+          <MapPin size={14} strokeWidth={1.5} />
+          <span>{property.location}</span>
+        </div>
+
+        <div className="flex items-center gap-6 mt-3 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <Bed size={16} />
+            <span>{property.beds} Beds</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Square size={16} />
+            <span>{property.size}</span>
+          </div>
+        </div>
+
+        <p className="text-sm text-muted-foreground mt-3 line-clamp-3">{property.description}</p>
+
+        <div className="mt-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <img src={property.agentAvatar || "/placeholder-user.jpg"} alt="agent" className="w-8 h-8 rounded-full" />
+            <div className="text-sm">
+              <div className="font-medium text-foreground">{property.agent || "Agent"}</div>
+              <div className="text-muted-foreground">{property.listedAgo || "2 days ago"}</div>
+            </div>
           </div>
 
-          <div className="flex items-center gap-2 text-muted-foreground mb-4">
-            <MapPin size={16} strokeWidth={1.5} />
-            <span className="text-sm">{property.location}</span>
-          </div>
-
-          <div className="flex items-center gap-6 mb-4 text-sm text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <Bed size={18} strokeWidth={1.5} />
-              <span>{property.beds} Beds</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Square size={18} strokeWidth={1.5} />
-              <span>{property.size}</span>
+          <div className="flex items-center gap-2">
+            <button className="hidden md:inline-flex items-center gap-2 px-3 py-2 bg-accent text-accent-foreground rounded-md text-sm">
+              Contact
+            </button>
+            <div className="text-accent flex items-center gap-1">
+              <span className="text-sm font-medium">View</span>
+              <ArrowRight size={16} />
             </div>
           </div>
-
-          {/* CTA Reveal */}
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            whileHover={{ opacity: 1, height: "auto" }}
-            transition={{ duration: 0.15 }}
-            className="overflow-hidden"
-          >
-            <div className="flex items-center gap-2 text-accent text-sm font-medium pt-2 border-t border-border">
-              <span>View Details</span>
-              <ArrowRight size={16} strokeWidth={2} />
-            </div>
-          </motion.div>
         </div>
       </div>
     </motion.div>

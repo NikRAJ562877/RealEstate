@@ -1,19 +1,13 @@
 "use client"
 import { motion } from "framer-motion"
 import { ChevronDown } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 const Hero = () => {
+  const navigate = useNavigate()
   const scrollToProperties = () => {
-    const element = document.querySelector("#properties")
-    if (element) {
-      const offset = 80
-      const elementPosition = element.getBoundingClientRect().top
-      const offsetPosition = elementPosition + window.pageYOffset - offset
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      })
-    }
+    // listings moved to a dedicated page — navigate there
+    navigate("/listings")
   }
 
   return (
