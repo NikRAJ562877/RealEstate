@@ -141,3 +141,59 @@
     line-height: 1.2;
   }
 }
+
+/* Infinite moving cards animation used by InfiniteMovingCards component */
+@keyframes scroll-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation-name: scroll-left;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: var(--animation-duration, 20s);
+  animation-direction: var(--animation-direction, forwards);
+}
+
+/* Provide a default pause-on-hover utility fallback when Tailwind variant isn't active */
+.scroller:hover .animate-scroll {
+  animation-play-state: paused;
+}
+
+/* Glass / glossy card utility */
+.glass-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.04);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(40px);
+  position: relative;
+  overflow: hidden;
+}
+.glass-card::after {
+  content: "";
+  position: absolute;
+  left: -60%;
+  top: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.06), rgba(255,255,255,0));
+  transform: skewX(-20deg) translateX(-100%);
+  transition: transform 0.9s ease;
+  pointer-events: none;
+}
+.glass-card:hover::after {
+  transform: skewX(-20deg) translateX(100%);
+}
+.glass-card:focus-within {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45), 0 2px 8px rgba(255,255,255,0.02) inset;
+}
+
+/* subtle focus glow used by filter inputs */
+.shadow-glow {
+  box-shadow: 0 6px 18px rgba(255,255,255,0.04), 0 2px 6px rgba(255,255,255,0.02);
+}

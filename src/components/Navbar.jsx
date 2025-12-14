@@ -50,22 +50,26 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-card shadow-sm" : "bg-transparent"
-      }`}
+      className="fixed left-1/2 top-6 z-50 -translate-x-1/2 w-full max-w-3xl px-4 pointer-events-none"
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+      <div className="pointer-events-auto">
+        <div
+          className={`mx-auto flex items-center justify-between gap-6 px-4 py-2 rounded-full transition-all duration-300 backdrop-blur-md border ${
+            isScrolled
+              ? "bg-black/70 border-white/10 shadow-xl scale-95"
+              : "bg-black/30 border-transparent"
+          }`}
+        >
           {/* Logo */}
-          <Link to="/" className="font-serif text-2xl font-semibold text-foreground">
+          <Link to="/" className="font-serif text-lg md:text-2xl font-semibold text-white">
             Estate
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               link.href && link.href.startsWith("/") ? (
-                <Link key={link.name} to={link.href} className="text-sm tracking-wide text-foreground hover:text-accent transition-colors duration-200">
+                <Link key={link.name} to={link.href} className="text-sm tracking-wide text-white/90 hover:text-white transition-colors duration-200">
                   {link.name}
                 </Link>
               ) : (
@@ -73,7 +77,7 @@ const Navbar = () => {
                   key={link.name}
                   href={link.href}
                   onClick={(e) => scrollToSection(e, link.href)}
-                  className="text-sm tracking-wide text-foreground hover:text-accent transition-colors duration-200"
+                  className="text-sm tracking-wide text-white/90 hover:text-white transition-colors duration-200"
                 >
                   {link.name}
                 </a>
@@ -84,20 +88,20 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden w-10 h-10 flex flex-col justify-center items-center gap-1.5"
+            className="md:hidden w-10 h-10 flex flex-col justify-center items-center gap-1.5 text-white"
             aria-label="Toggle menu"
           >
             <motion.span
               animate={isMobileMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-              className="w-6 h-0.5 bg-foreground transition-all"
+              className="w-6 h-0.5 bg-white transition-all"
             />
             <motion.span
               animate={isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-              className="w-6 h-0.5 bg-foreground transition-all"
+              className="w-6 h-0.5 bg-white transition-all"
             />
             <motion.span
               animate={isMobileMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-              className="w-6 h-0.5 bg-foreground transition-all"
+              className="w-6 h-0.5 bg-white transition-all"
             />
           </button>
         </div>

@@ -8,18 +8,22 @@ const Filters = ({ filters, setFilters }) => {
   return (
     <div className="space-y-4 p-4">
       <div>
-        <label className="block text-sm text-muted-foreground mb-1">Keyword</label>
+        <label className="block text-sm text-white/80 mb-1">Keyword</label>
         <input
           value={filters.q}
           onChange={(e) => setFilters((s) => ({ ...s, q: e.target.value }))}
-          className="w-full bg-card border border-border rounded-md px-3 py-2 text-sm"
+          className="w-full bg-neutral-700 border border-white/8 rounded-full px-4 py-3 text-sm text-white placeholder:text-white/60 transition-transform transform-gpu focus:scale-[1.01] focus:shadow-glow"
           placeholder="e.g. 2 BHK, Garden"
         />
       </div>
 
       <div>
-        <label className="block text-sm text-muted-foreground mb-1">Min Beds</label>
-        <select value={filters.beds} onChange={(e) => setFilters((s) => ({ ...s, beds: Number(e.target.value) }))} className="w-full bg-card border border-border rounded-md px-3 py-2 text-sm">
+        <label className="block text-sm text-white/80 mb-1">Min Beds</label>
+        <select
+          value={filters.beds}
+          onChange={(e) => setFilters((s) => ({ ...s, beds: Number(e.target.value) }))}
+          className="w-full bg-neutral-700 border border-white/8 rounded-full px-4 py-3 text-sm text-white transition-transform transform-gpu focus:scale-[1.01]"
+        >
           <option value={0}>Any</option>
           <option value={1}>1+</option>
           <option value={2}>2+</option>
@@ -29,8 +33,12 @@ const Filters = ({ filters, setFilters }) => {
       </div>
 
       <div>
-        <label className="block text-sm text-muted-foreground mb-1">Sort</label>
-        <select value={filters.sort} onChange={(e) => setFilters((s) => ({ ...s, sort: e.target.value }))} className="w-full bg-card border border-border rounded-md px-3 py-2 text-sm">
+        <label className="block text-sm text-white/80 mb-1">Sort</label>
+        <select
+          value={filters.sort}
+          onChange={(e) => setFilters((s) => ({ ...s, sort: e.target.value }))}
+          className="w-full bg-neutral-700 border border-white/8 rounded-full px-4 py-3 text-sm text-white transition-transform transform-gpu focus:scale-[1.01]"
+        >
           <option value="newest">Newest</option>
           <option value="price_desc">Price: High to Low</option>
           <option value="price_asc">Price: Low to High</option>
@@ -56,23 +64,23 @@ const PropertyListings = () => {
   }, [filters])
 
   return (
-    <section className="py-14 px-4 lg:px-8 bg-background">
+    <section className="py-16 px-4 lg:px-8 bg-neutral-900 text-white">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-6">
-          <h2 className="font-serif text-3xl text-foreground">Properties — Results</h2>
-          <p className="text-sm text-muted-foreground">Browse your best house</p>
+        <div className="mb-8">
+          <h2 className="font-serif text-4xl text-white">Properties — Results</h2>
+          <p className="text-sm text-white/70">Browse curated listings</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <aside className="lg:col-span-1">
-            <div className="sticky top-24 bg-card border border-border rounded-md">
-              <h4 className="px-4 py-3 font-medium">Filters</h4>
+            <div className="sticky top-24 bg-neutral-800 border border-white/6 rounded-xl p-4">
+              <h4 className="px-1 py-2 font-medium text-white">Filters</h4>
               <Filters filters={filters} setFilters={setFilters} />
             </div>
           </aside>
 
           <main className="lg:col-span-3">
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 gap-6">
               {properties.map((property, index) => (
                 <PropertyCard key={property.id} property={property} index={index} compact />
               ))}

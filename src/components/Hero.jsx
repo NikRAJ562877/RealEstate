@@ -11,11 +11,11 @@ const Hero = () => {
   }
 
   return (
-    <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img src="/luxury-modern-architecture-home-exterior.jpg" alt="Luxury home" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/50 to-black/70" />
       </div>
 
       {/* Content */}
@@ -26,7 +26,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <motion.h1
-            className="font-serif text-5xl md:text-7xl lg:text-8xl font-normal mb-6 text-balance"
+            className="font-serif text-6xl md:text-7xl lg:text-8xl font-normal mb-6 tracking-tight leading-tight"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
@@ -35,7 +35,7 @@ const Hero = () => {
           </motion.h1>
 
           <motion.p
-            className="text-lg md:text-xl text-white/90 mb-12 max-w-2xl mx-auto font-light leading-relaxed"
+            className="text-base md:text-lg text-white/80 mb-12 max-w-2xl mx-auto font-light leading-relaxed tracking-wide"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
@@ -50,7 +50,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-accent text-accent-foreground px-10 py-4 text-sm tracking-wider uppercase font-medium hover:bg-accent/90 transition-all duration-150"
+            className="bg-white text-black rounded-full px-12 py-4 text-sm tracking-wider uppercase font-medium hover:opacity-95 transition-all duration-150 shadow-lg"
           >
             Explore Properties
           </motion.button>
