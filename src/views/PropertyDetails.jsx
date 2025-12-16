@@ -284,9 +284,9 @@ const PropertyDetails = () => {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full bg-accent text-accent-foreground py-4 text-sm tracking-wider uppercase font-medium hover:bg-accent/90 transition-all duration-150 flex items-center justify-center gap-3 mb-4"
+                    className="w-full border border-border bg-accent text-accent-foreground py-2 px-21 text-sm tracking-wider uppercase font-medium hover:bg-accent/90 transition-all duration-150 flex items-center justify-center gap-3 mb-4"
                   >
-                    <Calendar size={18} strokeWidth={2} />
+                    <Calendar size={18} strokeWidth={3} />
                     Book Viewing
                   </motion.button>
                 </ExpandableScreenTrigger>
